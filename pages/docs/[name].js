@@ -36,7 +36,7 @@ const TextEditor = () => {
     const name = router.query.name;
 
     const {data:session} = useSession();
-	if(!session) return <Login />
+	
   
   const [editorState, setEditorState] = useState();
 
@@ -49,6 +49,8 @@ const TextEditor = () => {
       setEditorState(EditorState.createWithContent(convertFromRaw(snapshot?.data()?.editorState)))
     }
   },[snapshot])
+
+if(!session) return <Login />
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);

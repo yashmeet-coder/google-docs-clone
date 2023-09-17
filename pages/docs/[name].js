@@ -6,7 +6,7 @@ import { db } from '@/firebase';
 import { useSession } from 'next-auth/react'
 import Image from 'next/image';
 import {doc,getDoc,setDoc,collection} from "firebase/firestore";
-
+import Login from '@/components/Login';
 // import { getFirestore,collection,doc,getDocs, getDocsFromCache } from 'firebase/firestore';
 import 'firebase/firestore';
 // import firestore from '@/firebase';
@@ -36,6 +36,7 @@ const TextEditor = () => {
     const name = router.query.name;
 
     const {data:session} = useSession();
+	if(!session) return <Login />
   
   const [editorState, setEditorState] = useState();
 

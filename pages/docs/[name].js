@@ -1,25 +1,19 @@
 import dynamic from 'next/dynamic';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import "draft-js/dist/Draft.css";
-import firebase from 'firebase/app';
 import { db } from '@/firebase';
 import { useSession } from 'next-auth/react'
-import Image from 'next/image';
 import {doc,getDoc,setDoc,collection} from "firebase/firestore";
 
-// import { getFirestore,collection,doc,getDocs, getDocsFromCache } from 'firebase/firestore';
+
 import 'firebase/firestore';
-// import firestore from '@/firebase';
-import { initializeApp } from "firebase/app";
 import { EditorState, convertToRaw,convertFromRaw } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// import { EditorState } from 'react-draft-wysiwyg';
+import Login from '@/components/Login';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDocumentOnce,useDocument } from 'react-firebase-hooks/firestore';
-import { Description } from '@mui/icons-material';
-// import { getFirestore } from 'firebase/firestore';
-// import { Editor } from 'react-draft-wysiwyg';
+import { Description, Login } from '@mui/icons-material';
 
 const Editor = dynamic(
 	async () => {
@@ -36,6 +30,7 @@ const TextEditor = () => {
     const name = router.query.name;
 
     const {data:session} = useSession();
+    if(!session) return <Login />
   
   const [editorState, setEditorState] = useState();
 
@@ -51,7 +46,7 @@ const TextEditor = () => {
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
-    const docRef = doc(db,"userDocs",session?.user.email,"docs",router.query.name);
+    const docRef = doc(db,"userDocs",session?.user?.email,"docs",router.query.name);
     const content = convertToRaw(editorState.getCurrentContent());
     setDoc(docRef,{
       editorState : content

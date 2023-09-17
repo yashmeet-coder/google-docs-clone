@@ -51,7 +51,7 @@ const TextEditor = () => {
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
-    const docRef = doc(db,"userDocs",session?.user.email,"docs",router.query.name);
+    const docRef = doc(db,"userDocs",session?.user?.email,"docs",router.query.name);
     const content = convertToRaw(editorState.getCurrentContent());
     setDoc(docRef,{
       editorState : content

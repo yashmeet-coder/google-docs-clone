@@ -15,10 +15,14 @@ const RecentDocuments = () => {
  )
   return (
     <div className='mt-6'>
+      <div className='flex items-center mx-auto px-10 py-2 max-w-4xl justify-between'>
+        <h1 className='grow mr-10 font-semibold text-lg'>Recent Documents</h1>
+        <p className='text-sm text-gray-600 mr-10'>Date Created</p>
+      </div>
       {snapshot?.docs.map((doc)=>(
         <>
         <RecentDocument key={doc.id} id={doc.id} name={doc.data().name} timestamp={doc.data().timestamp} />
-        <hr className='max-w-4xl mx-auto bg-black' />
+        
         </>
       ))}
     </div>

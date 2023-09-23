@@ -17,23 +17,14 @@ import RecentDocument from '@/components/RecentDocument'
 export default function Home() {
 
   const {data:session,status} = useSession();
-  // console.log(status);
   if(!session) return <Login />
+  else
   return (
     <main className='bg-white'>
     <Header />
     <CreateDocument/>
     <RecentDocuments />
-    {/* <RecentDocument /> */}
     </main>
   )
 }
 
-// export async function getServerSideProps(context){
-//   const session = await getSession(context)
-//   return {
-//     props:{
-//       session
-//     }
-//   }
-// }

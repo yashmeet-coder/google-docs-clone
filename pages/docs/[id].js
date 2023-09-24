@@ -20,6 +20,7 @@ const Doc = ({user}) => {
   const [snapshot,loading] = useDocumentOnce(
     doc(db,"userDocs",user?.email,"docs",name)
   );
+  if(!session) return <Login />
 
   return (
     <div>

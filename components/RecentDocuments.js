@@ -20,10 +20,8 @@ const RecentDocuments = () => {
         <p className='text-sm text-gray-600 mr-10'>Date Created</p>
       </div>
       {snapshot?.docs.map((doc)=>(
-        <>
         <RecentDocument key={doc.id} id={doc.id} name={doc.data().name} timestamp={doc.data().timestamp} />
         
-        </>
       ))}
     </div>
   )

@@ -6,15 +6,19 @@ import {doc} from 'firebase/firestore';
 import { useDocumentOnce } from 'react-firebase-hooks/firestore';
 import TextEditor from '@/components/TextEditor';
 import { db } from '@/firebase';
+import {getSession} from 'next-auth/react';
 // import {getSession} from 'next-auth/react';
 
-const Doc = () => {
+const Doc = ({user}) => {
   const router = useRouter();
-  const name = router.query.name || null;
-
-  let { data: session } = useSession();
+  const name = router.query.id || null;
+  if(!user) return <Login />
+  // console.log(name);
+  // console.log(user);
+  // const { data: session } = useSession();
+  // console.log(session?.user?.email);
   const [snapshot,loading] = useDocumentOnce(
-    doc(db,"userDocs",session?.user?.email,"docs",name)
+    doc(db,"userDocs",user?.email,"docs",name)
   );
 
   return (
@@ -25,4 +29,17 @@ const Doc = () => {
 }
 
 export default Doc
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  if (!session) {
+    return {
+      props: {}
+    }
+  }
+  const { user } = session;
+  return {
+    props: { user },
+  }
+}
 

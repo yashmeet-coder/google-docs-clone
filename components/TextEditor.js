@@ -37,9 +37,9 @@ const TextEditor = ({snapshot,loading}) => {
     }
   },[snapshot])
 
-  if( snapshot?.data()?.filename==='' && loading===false){
-    router.push("/")
-  }
+  // if( snapshot?.data()?.filename==='' && loading===false){
+  //   router.push("/")
+  // }
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);

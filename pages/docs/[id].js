@@ -12,15 +12,13 @@ import {getSession} from 'next-auth/react';
 const Doc = ({user}) => {
   const router = useRouter();
   const name = router.query.id || null;
-  if(!user) return <Login />
-  // console.log(name);
-  // console.log(user);
-  // const { data: session } = useSession();
-  // console.log(session?.user?.email);
   const [snapshot,loading] = useDocumentOnce(
     doc(db,"userDocs",user?.email,"docs",name)
   );
-  if(!session) return <Login />
+  
+  if(!snapshot?.data()?.name && !loading){
+    router.push('/')
+  }
 
   return (
     <div>

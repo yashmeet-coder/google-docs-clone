@@ -54,7 +54,7 @@ function Header() {
           <div className=' absolute top-12 bg-white w-full p-2 rounded-lg shadow-lg'>{
             searchResults.map((doc) => (
               <>
-                <h1 className="cursor-pointer" onClick={()=>{ router.push({pathname: "/docs/[name]", query:{name:doc.id}})}}>{doc.data().name}</h1>
+                <h1 className="cursor-pointer" onClick={()=>{ router.push({pathname: "/docs/[id]", query:{id:doc.id}})}}>{doc.data().name}</h1>
                 <hr className='bg-gray-200' />
               </>
             ))
